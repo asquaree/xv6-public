@@ -26,6 +26,7 @@ int uptime(void);
 int getnumproc(void);
 int ps(void);
 int procinfo(void);
+int setprio(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

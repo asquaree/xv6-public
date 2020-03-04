@@ -108,5 +108,21 @@ sys_procinfo(void)
   cprintf("Name: %s\n", myproc()->name);
   cprintf("State: %s\n", pstate[myproc()->state]);
   cprintf("PID: %d\n", myproc()->pid);
+  cprintf("Priority: %d\n", myproc()->priority);
+  return 0;
+}
+
+int
+sys_setprio(void)
+{
+  int prio;
+
+  if(argint(0, &prio) < 0)
+    return -1;
+
+  if(prio < 0 || prio > 10)
+    return -2;
+
+  myproc()->priority = prio;
   return 0;
 }
