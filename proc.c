@@ -532,3 +532,32 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int
+getnumproc(void){
+  int num=0;
+  struct proc *p;
+  acquire(&ptable.lock);
+  p = ptable.proc;
+  while(p->pid !=0){
+    num++;
+    p++;
+  }
+  release(&ptable.lock);
+  return num;
+}
+
+int 
+ps(void)
+{
+  struct proc *p;
+  acquire(&ptable.lock);
+  cprintf("%s\t%s\n", "name","pid");
+  p = ptable.proc;
+  while(p->pid !=0){
+    cprintf("%s\t%d\n", p->name, p->pid);
+    p++;
+  }
+  release(&ptable.lock);
+  return 0;
+}

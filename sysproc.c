@@ -89,3 +89,24 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int 
+sys_getnumproc(void)
+{
+  return getnumproc();
+}
+
+int
+sys_ps(void){
+  return ps();
+}
+
+int
+sys_procinfo(void)
+{
+  const char* pstate[] = {"UNUSED", "EMBRYO", "SLEEPING", "RUNNABLE", "RUNNING", "ZOMBIE"};
+  cprintf("Name: %s\n", myproc()->name);
+  cprintf("State: %s\n", pstate[myproc()->state]);
+  cprintf("PID: %d\n", myproc()->pid);
+  return 0;
+}
